@@ -342,29 +342,21 @@ public class Test {
 //		System.out.println(s.toString());
 
 
-//      int rows = 4;
-//      int cols = 5;
-
-//      int[] row0 = new int[]{1, 2, 3, 2, 3};
-//      int[] row1 = new int[]{4, 0, 6, 0, 6};
-//      int[] row2 = new int[]{7, 8, 9, 8, 9};
-//      int[] row3 = new int[]{7, 8, 0, 8, 0};
-
-
-//      int[][] m = new int[][]{row0, row1, row2, row3};
-
-
-
-//      for(int i=0; i<rows; i++){
-//          System.out.println(Arrays.toString(m[i]));
-//      }
-
-//      System.out.println("---------------------");
-
-//      m = zero_matrix(m, rows, cols);
-//      for(int i=0; i<rows; i++){
-//          System.out.println(Arrays.toString(m[i]));
-//      }
+//		int rows = 4;
+//		int cols = 5;
+//		int[] row0 = new int[]{1, 2, 3, 2, 3};
+//		int[] row1 = new int[]{4, 0, 6, 0, 6};
+//		int[] row2 = new int[]{7, 8, 9, 8, 9};
+//		int[] row3 = new int[]{7, 8, 0, 8, 0};
+//		int[][] m = new int[][]{row0, row1, row2, row3};
+//		for(int i=0; i<rows; i++){
+//		    System.out.println(Arrays.toString(m[i]));
+//		}
+//		System.out.println("---------------------");
+//		m = zero_matrix(m, rows, cols);
+//		for(int i=0; i<rows; i++){
+//                  System.out.println(Arrays.toString(m[i]));
+//		}
 
 	}
 }
