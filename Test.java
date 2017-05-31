@@ -340,8 +340,7 @@ public class Test {
 
 	public static void main(String [] args){
 
-//		System.out.println("hey there");
-//
+
 //		String a = "abcde";
 //		System.out.println(isUnique(a));
 //
@@ -390,14 +389,14 @@ public class Test {
 //                  System.out.println(Arrays.toString(m[i]));
 //		}
 
-//    System.out.println(IsPalindromePermutation("aannc"));
-//    System.out.println(IsPalindromePermutation("aannf fccdf"));
-//    int a = 1 << 0;
-//    System.out.println(a);
-//    a = 1 << 1;
-//    System.out.println(a);
-//    a = 1 << 2;
-//    System.out.println(a);
+//		System.out.println(IsPalindromePermutation("aannc"));
+//		System.out.println(IsPalindromePermutation("aannf fccdf"));
+//		int a = 1 << 0;
+//		System.out.println(a);
+//		a = 1 << 1;
+//		System.out.println(a);
+//		a = 1 << 2;
+//		System.out.println(a);
 
 
 
