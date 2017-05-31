@@ -306,6 +306,38 @@ public class Test {
       return m;
   }
 
+  public static boolean IsPalindromePermutation(String s){
+
+      int result = 0;
+      for (int i = 0; i<s.length(); i++){
+          char ch = s.charAt(i);
+          if (ch != ' '){
+              int c = Character.toLowerCase(ch)-'a';
+              System.out.println("below is c : " +c);
+              result = toggle(result, c);
+
+          }
+
+      }
+
+
+      return result == 0 || (result & (result -1)) == 0;
+  }
+
+
+
+  private static int toggle(int result, int c){
+      int charValue = 1 << c;
+      System.out.println("below is charValue : " + charValue);
+      if ((charValue & result) == 0){
+          result |= charValue;
+      }else{
+          result &= ~charValue;
+      }
+      System.out.println("result : " + result);
+      return result;
+  }
+
 	public static void main(String [] args){
 
 //		System.out.println("hey there");
@@ -357,6 +389,19 @@ public class Test {
 //		for(int i=0; i<rows; i++){
 //                  System.out.println(Arrays.toString(m[i]));
 //		}
+
+//    System.out.println(IsPalindromePermutation("aannc"));
+//    System.out.println(IsPalindromePermutation("aannf fccdf"));
+//    int a = 1 << 0;
+//    System.out.println(a);
+//    a = 1 << 1;
+//    System.out.println(a);
+//    a = 1 << 2;
+//    System.out.println(a);
+
+
+
+
 
 	}
 }
