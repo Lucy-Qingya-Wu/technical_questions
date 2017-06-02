@@ -1,6 +1,6 @@
 import java.util.*;
 
-public class Test {
+public class Chapter2 {
 	
 	// remove duplicates from an unsorted list
 	public static NodeLinkedList removeDuplicate1(NodeLinkedList l){
