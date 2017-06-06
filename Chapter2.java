@@ -61,15 +61,63 @@ public class Chapter2 {
 		
 		
 	}
+	
+	public static Node returnKthToLast(NodeLinkedList l, int k){
+
+	    Node n1 = null;
+	    int count = 0;
+
+	    while (count < k){
+	      if (count == 0){
+		n1 = l.getHead();
+	      }else{
+		n1 = n1.next;
+	      }
+	      if (n1 == null){
+		System.out.println("length of linked list is shorted than what is expected");
+		return null;
+	      }
+	      count += 1;
+	    }
+
+
+	    Node n2 = l.getHead();
+	    while (n1.next != null){
+	      n1 = n1.next;
+	      n2 = n2.next;
+	    }
+	    return n2;
+	}
+
+	public static boolean deleteNodeInMiddle(Node n){
+
+	    if (n == null || n.next == null){
+	      return false;
+	    }
+
+	    n.setValue(n.next.value);
+		n.next = n.next.next;
+		if (n.next.next != null){
+		  n.next.next.pre = n;
+		}
+	    return true;
+
+
+	}
 
 	public static void main(String[] args) {
-		NodeLinkedList ll = new NodeLinkedList();
 		
+	        HashSet<String> set = new HashSet<String>();
+	        set.add("ABC");
+	        if (set.contains("ABC")){
+	         System.out.println("the set contains " + "ABC");
+	        }		
+		
+		NodeLinkedList ll = new NodeLinkedList();
 		Node n1 = new Node(1);
 		Node n2 = new Node(2);
 		Node n3 = new Node(3);
 		Node n4 = new Node(4);
-		
 		Node n5 = new Node(4);
 		Node n6 = new Node(4);
 		Node n7 = new Node(5);
@@ -80,22 +128,28 @@ public class Chapter2 {
 		ll.append(n1);
 		ll.append(n2);
 		ll.append(n3);
-		
 		ll.append(n4);
 		ll.append(n5);
 		ll.append(n6);
-		
 		ll.append(n7);
 		ll.append(n8);
-		
 		ll.append(n9);
 		ll.append(n10);
 		
-		ll.print();
-		System.out.println("--------------------");
     
 		NodeLinkedList result = removeDuplicate1(ll);
 		result.print();
+		
+		Node result = returnKthToLast(ll, 4);
+		if (result != null){
+		  System.out.println(result.value);
+		}
+
+		
+		boolean result = deleteNodeInMiddle(n10);
+		System.out.println(result);
+		ll.print();
+		
 		
 		
 	}
