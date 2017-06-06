@@ -1,7 +1,84 @@
 import java.util.*;
 
 public class Chapter2 {
-	
+	public static boolean partition(NodeLinkedList ll, int value){
+
+	    Node tail = ll.getHead();
+
+	    while (tail.next != null){
+	      tail = tail.next;
+	    }
+
+
+	    Node n = ll.getHead();
+	    int count = ll.getLength();
+
+	    while (n != null && count > 0){
+	      count -= 1;
+	      Node move = n;
+	      n = n.next;
+
+	      // append to tail
+	      if (move.value >= value){
+
+		// if we do not need to change tail
+			if (n.equals(tail)){
+
+			  continue;
+			}
+
+		// if we do need to move elements to tail
+			// Step 1: connect move.pre and move.next
+		if (move.pre != null){
+		  move.pre.next = move.next;
+		}
+		if (move.next != null){
+		  move.next.pre = move.pre;
+		}
+		// Step 2: the moved element is the head, so we need to set move next to the new head
+			if (move.pre == null){
+		  ll.setHead(move.next);
+		}
+
+		// connect the moved element with tail
+		move.pre = tail;
+		move.next = null;
+		tail.next = move;
+			tail = move;
+
+
+
+	      }else{
+		// append to head
+
+		// if we do not need to change head
+		if (move.equals(ll.getHead())){
+
+		  continue;
+		}
+
+		// if we do need to append element before head  
+		// Step 1: connect move.pre and move.next
+		if (move.pre != null){
+		  move.pre.next = move.next;
+		}
+		if (move.next != null){
+		  move.next.pre = move.pre;
+		}
+		// Step 2: update head
+		Node old_head = ll.getHead();
+		move.next = old_head;
+		move.pre = null;
+		old_head.pre = move;
+		ll.setHead(move);
+
+	      }
+
+	    }
+
+	    return true;
+
+	}
 	// remove duplicates from an unsorted list
 	public static NodeLinkedList removeDuplicate1(NodeLinkedList l){
 		
@@ -119,6 +196,7 @@ public class Chapter2 {
 		Node n3 = new Node(3);
 		Node n4 = new Node(4);
 		Node n5 = new Node(4);
+		Node n55 = new Node(5);
 		Node n6 = new Node(4);
 		Node n7 = new Node(5);
 		Node n8 = new Node(6);
@@ -150,7 +228,16 @@ public class Chapter2 {
 		System.out.println(result);
 		ll.print();
 		
-		
+		NodeLinkedList ll2 = new NodeLinkedList();				
+		ll2.append(n3);
+        	ll2.append(n5);
+        	ll2.append(n8);
+        	ll2.append(n55);
+        	ll2.append(n10);
+        	ll2.append(n2);
+        	ll2.append(n1);
+        	partition(ll2, 5);
+                ll2.print();		
 		
 	}
 
