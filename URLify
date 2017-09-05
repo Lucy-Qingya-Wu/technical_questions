@@ -1,0 +1,48 @@
+	public static char[] URLify(char[] s, int len){
+		int space = 0;
+		for (char c : s){
+			if (c == ' '){
+				space++;
+			}
+		}
+		System.out.println("space is " + space);
+		
+		int num = len - space + space * 3 - 1;
+		
+		for (int i = len - 1; i >= 0; i--){
+			if (s[i] != ' '){
+				s[num] = s[i];
+				num--;
+				
+			}else{
+				s[num] = '0';
+				s[num-1] = '2';
+				s[num-2] = '%';
+				
+				num -= 3;
+						
+			}
+		}
+		
+		return s;
+	}
+
+	public static void main(String[] args){
+		char[] s = new char[19];
+		s[0] = ' ';
+		s[1] = 'r';
+		s[2] = ' ';
+		s[3] = 'j';
+		s[4] = 'o';
+		s[5] = 'h';
+		s[6] = 'n';
+		s[7] = ' ';
+		s[8] = 's';
+		s[9] = 'm';
+		s[10] = 'i';
+		s[11] = 't';
+		s[12] = 'h';
+		
+		System.out.println(URLify(s, 13));
+	
+	}
