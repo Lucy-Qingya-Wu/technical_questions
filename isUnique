@@ -1,30 +1,33 @@
-	      // assume the input String words only contains ASCII char, we will use 128-char array to test whether there is repeating one 
-  
-	      public static boolean isUnique(String words){
-			
-			
-			boolean[] char_set = new boolean[128];
+       // assume the input String words only contains ASCII char, we will use 128-char array to test whether there is repeating one 
+    
+       public static boolean isUnique(String words){
 		
+		if (words.length() > 128){
+			return false;
+		}
+    	
+		boolean[] char_set = new boolean[128];
+	
+		
+		for (int i=0; i<words.length(); i++){
 			
-			for (int i=0; i<words.length(); i++){
+			int n = words.charAt(i);
+			if (char_set[n]){
 				
-				int n = words.charAt(i);
-				if (char_set[n]){
-					
-					return false;
-				}else{
-					char_set[n]=true;
-				}
+				return false;
+			}else{
+				char_set[n]=true;
 			}
-			
-			return true;
-			
 		}
 		
-		public static void main(String[] args) {
-			
+		return true;
 		
-			String s = "la4";
-			System.out.println(isUnique(s));
-			
-		}
+	}
+	
+	public static void main(String[] args) {
+		
+	
+		String s = "la44";
+		System.out.println(isUnique(s));
+		
+	}
