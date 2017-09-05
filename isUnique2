@@ -1,0 +1,23 @@
+	public static boolean isUnique2(String w){
+		int bits = 0;
+		for (int i = 0; i<w.length(); i++){
+			int num = w.charAt(i);
+			if ((bits & 1<<num) > 0){
+				
+				return false;
+			}
+			else{
+				bits |= 1<<num;
+			}
+	
+		}
+		return true;
+	}
+
+		
+	public static void main(String[] args){
+	
+		String w = "abvdsac";
+		System.out.println(isUnique2(w));
+	
+	}
