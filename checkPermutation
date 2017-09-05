@@ -1,0 +1,30 @@
+	public static boolean checkPermutation(String s1, String s2){
+		if (s1.length() != s2.length()){
+			return false;
+		}
+		
+		int[] check = new int[128];
+		
+		
+		for (int i = 0; i<s1.length(); i++){
+			int num = s1.charAt(i);
+			check[num]++;
+		}
+		
+		for (int i = 0; i<s2.length(); i++){
+			int num = s2.charAt(i);
+			check[num]--;
+			
+			if (check[num] < 0){
+				return false;
+			}
+		}		
+		
+		return true;
+	}
+
+	public static void main(String[] args){
+		String s1 = "hchca";
+		String s2 = "hhacc";
+		System.out.println(checkPermutation(s1, s2));
+	}
