@@ -1,0 +1,31 @@
+	public static String stringCompression(String s){
+		
+		StringBuilder sb = new StringBuilder();
+		char letter = s.charAt(0);
+		int count = 1;
+		for (int i=1; i<s.length(); i++){
+			
+			if (s.charAt(i) == letter){
+				count++;
+			}else{
+				sb.append(letter);
+				sb.append(count);
+				letter = s.charAt(i);
+				count = 1;
+			}
+			
+		}
+		sb.append(letter);
+		sb.append(count);
+		
+		return sb.toString().length() >= s.length() ? s:sb.toString();
+		
+	}
+	
+	
+	public static void main(String[] args){
+		String s = "abbbb";
+		
+		System.out.println(stringCompression(s));
+	
+	}
