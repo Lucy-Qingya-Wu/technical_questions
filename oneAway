@@ -1,0 +1,56 @@
+	public static boolean oneAway(String s1, String s2){
+		boolean check = false;
+		if (s1.length() == s2.length()){
+			
+			for (int i = 0; i<s1.length(); i++){
+				if (s1.charAt(i) != s2.charAt(i)){
+					if (check) return false;
+					else{
+						check = true;
+					}
+				}
+			}
+			
+		}else{
+			
+			String long_one = s1.length() > s2.length() ? s1:s2;
+			String short_one = s1.length() < s2.length() ? s1:s2;
+
+			if (long_one.length() - 1 != short_one.length()) return false;
+			
+			int index_for_long = 0;
+			
+			for (int i=0; i<short_one.length(); i++){
+				
+				
+				if (short_one.charAt(i) != long_one.charAt(index_for_long)){
+					if (check) return false;
+					else{
+						i--;	
+						check = true;
+					}
+				}
+				
+				index_for_long++;
+
+			}
+	
+		}
+		
+		return true;
+		
+	}
+	
+	
+	public static void main(String[] args){
+		
+		System.out.println(oneAway("pale", "ple"));
+		
+		System.out.println(oneAway("pales", "pale"));
+		
+		System.out.println(oneAway("pale", "bale"));
+		
+		System.out.println(oneAway("abaee", "bae"));
+		
+		
+	}
