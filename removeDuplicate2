@@ -1,7 +1,7 @@
 package Hello;
 import java.util.*;
 public class Answer {
-	
+	// solve this problem without a temporary buffer
 	public static LinkedList removeDuplicate1(LinkedList ll){
 		Node n = ll.head;
 		while (n!= null){
