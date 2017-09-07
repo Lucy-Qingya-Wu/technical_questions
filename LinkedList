@@ -1,0 +1,33 @@
+class LinkedList{
+	Node head;
+	
+	LinkedList(){
+		this.head=null;
+	}
+	
+	public void print(){
+		Node n = this.head;
+		while (n!= null){
+			System.out.println(n.value);
+			n=n.next;
+		}
+	}
+	
+	public void appendToTail(int value){
+		Node newNode = new Node(value);
+		if (this.head == null){
+			
+			this.head = newNode;
+		}
+		else{
+			Node n = this.head;
+			while (n.next!= null){
+				n = n.next;
+			}
+			n.next = newNode;
+		}
+		
+	}
+	
+	
+}
