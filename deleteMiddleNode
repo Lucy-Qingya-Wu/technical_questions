@@ -2,10 +2,12 @@ import java.util.*;
 public class Answer {
 	
 	public static void deleteMiddleNode(LinkedList ll, Node n){
-		
-		Node next = n.next;
-		n.value = next.value;
-		n.next = next.next;
+		if (n == null || n.next == null) System.out.println("The node n can be any node but the first or last node.");
+		else{
+			Node next = n.next;
+			n.value = next.value;
+			n.next = next.next;
+		}
 
 		
 		
