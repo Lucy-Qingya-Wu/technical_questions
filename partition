@@ -1,0 +1,102 @@
+import java.util.*;
+public class Answer {
+	
+	public static LinkedList partition(LinkedList ll, int value){
+		
+		Node head = ll.head;
+		Node tail = ll.head;
+		
+		Node current = ll.head.next;
+		
+		while (current!= null){
+			
+			Node next = current.next;
+			
+			if (current.value >= value && current!=tail){
+				tail.next = current;
+				tail = current;
+				tail.next = null;
+			}else{
+				if (current!=head){
+					current.next = head;
+					head = current;
+				}
+			}
+			current = next;
+		}
+		ll.head = head;
+		return ll;
+
+		
+		
+	}
+	
+
+	
+	public static void main(String[] args){
+		LinkedList ll = new LinkedList();
+		ll.appendToTail(10);
+		ll.appendToTail(9);
+		ll.appendToTail(8);
+		ll.appendToTail(7);
+		ll.appendToTail(6);
+		ll.appendToTail(5);
+		ll.appendToTail(4);
+		
+		ll.print();
+		System.out.println("-------------");
+		
+
+		ll = partition(ll, 5);
+		ll.print();
+		
+	}
+	
+	
+}
+
+class LinkedList{
+	Node head;
+	
+	LinkedList(){
+		this.head=null;
+	}
+	
+	public void print(){
+		Node n = this.head;
+		while (n!= null){
+			System.out.println(n.value);
+			n=n.next;
+		}
+	}
+	
+	public void appendToTail(int value){
+		Node newNode = new Node(value);
+		if (this.head == null){
+			
+			this.head = newNode;
+		}
+		else{
+			Node n = this.head;
+			while (n.next!= null){
+				n = n.next;
+			}
+			n.next = newNode;
+		}
+		
+	}
+	
+	
+}
+
+class Node{
+	
+	public Node next;
+	public int value;
+	
+	Node(int value){
+		this.value=value;
+		this.next=null;
+	}
+	
+}
