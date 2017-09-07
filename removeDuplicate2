@@ -1,0 +1,103 @@
+package Hello;
+import java.util.*;
+public class Answer {
+	
+	public static LinkedList removeDuplicate1(LinkedList ll){
+		Node n = ll.head;
+		while (n!= null){
+			
+			Node faster = n;
+			
+			while (faster.next!=null){
+				if (faster.next.value == n.value){
+					faster.next = faster.next.next;
+				}
+				else{
+					faster = faster.next;
+				}
+			}
+			
+			n = n.next;
+			
+		}
+		
+		return ll;
+		
+	}
+	
+	public static void deleteDups(LinkedList h){
+		Node current = h.head;
+		while (current!=null){
+			Node runner = current;
+			while (runner.next != null){
+				if (runner.next.value == current.value){
+					runner.next = runner.next.next;
+				}else{
+					runner = runner.next;
+				}
+			}
+			current=current.next;
+			
+		}
+	}
+	
+	public static void main(String[] args){
+		LinkedList ll = new LinkedList();
+		ll.appendToTail(1);
+		ll.appendToTail(2);
+		ll.appendToTail(4);
+		ll.appendToTail(1);
+		ll.print();
+		System.out.println("-------------");
+		removeDuplicate2(ll);
+		ll.print();
+	}
+	
+	
+}
+
+class LinkedList{
+	Node head;
+	
+	LinkedList(){
+		this.head=null;
+	}
+	
+	public void print(){
+		Node n = this.head;
+		while (n!= null){
+			System.out.println(n.value);
+			n=n.next;
+		}
+	}
+	
+	public void appendToTail(int value){
+		Node newNode = new Node(value);
+		if (this.head == null){
+			
+			this.head = newNode;
+		}
+		else{
+			Node n = this.head;
+			while (n.next!= null){
+				n = n.next;
+			}
+			n.next = newNode;
+		}
+		
+	}
+	
+	
+}
+
+class Node{
+	
+	public Node next;
+	public int value;
+	
+	Node(int value){
+		this.value=value;
+		this.next=null;
+	}
+	
+}
