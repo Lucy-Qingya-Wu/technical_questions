@@ -1,0 +1,125 @@
+public class MyAnswer {
+
+   public static LinkedList sumListNumberWithReverseOrder(LinkedList list1, LinkedList list2){
+
+       Node h1 = list1.head;
+       Node h2 = list2.head;
+
+       LinkedList newList = new LinkedList();
+
+       int adder = 0;
+       int value = 0;
+
+       while (h1 != null && h2 != null){
+
+           value = h1.value + h2.value + adder;
+
+           adder = value / 10;
+           newList.appendToTail(value % 10);
+
+           h1 = h1.next;
+           h2 = h2.next;
+       }
+
+       while (h1 != null){
+
+           value = h1.value + adder;
+
+           adder = value / 10;
+
+           newList.appendToTail(value % 10);
+           h1 = h1.next;
+
+       }
+
+       while (h2 != null){
+
+           value = h2.value + adder;
+
+           adder = value / 10;
+
+           newList.appendToTail(value % 10);
+           h2 = h2.next;
+
+       }
+
+       if (adder > 0) newList.appendToTail(adder);
+
+       return newList;
+
+   }
+
+
+    public static void main(String[] args){
+
+        LinkedList list1 = new LinkedList();
+
+        list1.appendToTail(7);
+
+        list1.appendToTail(1);
+
+        list1.appendToTail(6);
+
+        LinkedList list2 = new LinkedList();
+
+        list2.appendToTail(5);
+
+        list2.appendToTail(9);
+
+        list2.appendToTail(2);
+
+
+
+
+        LinkedList newList = sumListNumberWithReverseOrder(list1, list2);
+
+        newList.print();
+    }
+
+}
+
+class LinkedList{
+    Node head;
+
+    LinkedList(){
+        this.head=null;
+    }
+
+    public void print(){
+        Node n = this.head;
+        while (n!= null){
+            System.out.println(n.value);
+            n=n.next;
+        }
+    }
+
+    public void appendToTail(int value){
+        Node newNode = new Node(value);
+        if (this.head == null){
+
+            this.head = newNode;
+        }
+        else{
+            Node n = this.head;
+            while (n.next!= null){
+                n = n.next;
+            }
+            n.next = newNode;
+        }
+
+    }
+
+
+}
+
+class Node{
+
+    public Node next;
+    public int value;
+
+    Node(int value){
+        this.value=value;
+        this.next=null;
+    }
+
+}
