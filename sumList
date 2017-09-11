@@ -1,0 +1,189 @@
+public class MyAnswer {
+
+   public static LinkedList sumList(Node n1, Node n2){
+
+
+       int len1 = findLength(n1);
+
+       int len2 = findLength(n2);
+
+
+       if (len1 > len2){
+           n2 = extendList(n2, len1 - len2);
+       }
+
+       else if (len2 > len1){
+           n1 = extendList(n1, len2 - len1);
+       }
+
+       NodePlusAdder npa = sumListNumber(n1, n2);
+
+       LinkedList ll = new LinkedList();
+
+       ll.head = npa.node;
+
+       if (npa.adder > 0){
+           Node newN = new Node(npa.adder);
+           newN.next = ll.head;
+           ll.head = newN;
+       }
+
+       return ll;
+
+   }
+
+  private static NodePlusAdder sumListNumber(Node n1, Node n2){
+      
+
+      NodePlusAdder nodePlusAdder = null;
+
+      if (n1.next != null){
+          nodePlusAdder = sumListNumber(n1.next, n2.next);
+      }
+
+      NodePlusAdder newNodePlusAdder = new NodePlusAdder();
+
+      int adder = nodePlusAdder == null? 0:nodePlusAdder.adder;
+
+      newNodePlusAdder.node = new Node((n1.value+n2.value+adder)%10);
+
+      newNodePlusAdder.node.next = nodePlusAdder == null? null:nodePlusAdder.node;
+
+      newNodePlusAdder.adder = (n1.value+n2.value+adder)/10;
+
+      return newNodePlusAdder;
+
+
+
+  }
+  private static Node extendList(Node head, int num){
+
+      LinkedList newEmptyList = createEmptyLinkedList(num);
+
+      Node point = newEmptyList.head;
+      while (point.next != null){
+          point = point.next;
+      }
+
+      point.next = head;
+      return newEmptyList.head;
+
+
+  }
+
+
+  private static LinkedList createEmptyLinkedList(int i){
+      LinkedList ll = new LinkedList();
+      int count = 0;
+      while (count < i){
+          ll.appendToTail(0);
+          count += 1;
+      }
+      return ll;
+
+  }
+
+   private static int findLength(Node n){
+
+       int length = 0;
+
+       while (n != null){
+           length+=1;
+           n = n.next;
+       }
+
+       return length;
+
+   }
+
+
+    public static void main(String[] args){
+
+        LinkedList list1 = new LinkedList();
+
+        list1.appendToTail(7);
+
+        list1.appendToTail(1);
+
+        list1.appendToTail(6);
+
+        list1.appendToTail(8);
+
+        LinkedList list2 = new LinkedList();
+
+        list2.appendToTail(5);
+
+        list2.appendToTail(9);
+
+        list2.appendToTail(2);
+
+
+        LinkedList result = sumList(list1.head, list2.head);
+
+        result.print();
+
+
+    }
+
+}
+
+
+
+class LinkedList{
+    Node head;
+
+    LinkedList(){
+        this.head=null;
+    }
+
+    public void print(){
+        Node n = this.head;
+        while (n!= null){
+            System.out.println(n.value);
+            n=n.next;
+        }
+    }
+
+    public void appendToTail(int value){
+        Node newNode = new Node(value);
+        if (this.head == null){
+
+            this.head = newNode;
+        }
+        else{
+            Node n = this.head;
+            while (n.next!= null){
+                n = n.next;
+            }
+            n.next = newNode;
+        }
+
+    }
+
+
+}
+
+class Node{
+
+    public Node next;
+    public int value;
+
+    Node(int value){
+        this.value=value;
+        this.next=null;
+    }
+
+}
+
+class NodePlusAdder{
+
+    public Node node;
+    public int adder;
+
+    NodePlusAdder(){
+
+        this.node = null;
+        this.adder = 0;
+
+    }
+}
