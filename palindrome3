@@ -1,0 +1,139 @@
+package Hello;
+import java.util.*;
+public class Answer {
+	
+
+	public static boolean palindrome3(LinkedList ll){
+		
+		int length = getLength(ll.head);
+		
+		
+		NodePlusBoolean final_answer = palindromeHelper(ll.head, length);
+		
+		return final_answer.result;
+		
+		
+
+	}
+	
+	private static NodePlusBoolean palindromeHelper(Node n, int length){
+		
+		NodePlusBoolean next = null;
+		
+		if (length > 1 ){
+			
+			next = palindromeHelper(n.next, length-2);
+			
+		}
+		
+		else if (length == 0){
+			NodePlusBoolean newOne = new NodePlusBoolean(n, true);
+			return newOne;
+		}
+		
+		else{
+			// length == 1
+			NodePlusBoolean newOne = new NodePlusBoolean(n.next, true);
+			return newOne;
+			
+		}
+		
+		if (next != null){
+			if (!next.result){
+				return next;
+			}
+			
+			boolean result = (next.node.value == n.value);
+			return new NodePlusBoolean(next.node.next, result);
+
+		}
+		
+		return null;
+		
+		
+	}
+	
+    private static int getLength(Node n){
+    	int count = 0;
+    	while (n!=null){
+    		count +=1;
+    		n=n.next;
+    	}
+    	return count;
+    }
+
+	
+	public static void main(String[] args){
+
+		LinkedList ll = new LinkedList();
+		
+		ll.appendToTail(1);
+		ll.appendToTail(4);
+		
+		ll.appendToTail(1);
+		ll.appendToTail(4);
+		
+		
+		System.out.println(palindrome3(ll));
+	}
+	
+	
+}
+
+
+class NodePlusBoolean{
+	public boolean result;
+	public Node node;
+	
+	NodePlusBoolean(Node n, boolean result){
+		this.result = result;
+		this.node=n;
+	}
+	
+}
+
+class LinkedList{
+	Node head;
+	
+	LinkedList(){
+		this.head=null;
+	}
+	
+	public void print(){
+		Node n = this.head;
+		while (n!= null){
+			System.out.println(n.value);
+			n=n.next;
+		}
+	}
+	
+	public void appendToTail(int value){
+		Node newNode = new Node(value);
+		if (this.head == null){
+			
+			this.head = newNode;
+		}
+		else{
+			Node n = this.head;
+			while (n.next!= null){
+				n = n.next;
+			}
+			n.next = newNode;
+		}
+		
+	}
+	
+	
+}
+
+class Node{
+	
+	public Node next;
+	public int value;
+	
+	Node(int value){
+		this.value=value;
+		this.next=null;
+	}
+	
+}
