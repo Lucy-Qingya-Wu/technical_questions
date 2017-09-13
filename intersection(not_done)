@@ -1,0 +1,178 @@
+package Hello;
+import java.util.*;
+public class Answer {
+	
+
+	public static Node intersection(LinkedList ll1, LinkedList ll2){
+		
+		// check if the last node in ll1 is as same as the last one in ll2
+		// meanwhile check if length(ll1) == length(ll2)
+		
+		int len1 = 0;
+		Node n1 = ll1.head;
+		while(n1!=null){
+			len1+=1;
+			n1 = n1.next;
+		}
+		
+		int len2 = 0;
+		Node n2 = ll2.head;
+		while(n2!=null){
+			len2+=1;
+			n2 = n2.next;
+		}
+		
+		if (n1 == n2){
+			System.out.println("this statement is true -> n1 == n2");
+			return intersectionHelper(ll1, ll2, len1, len2);
+		}
+		System.out.println("this statement is false -> n1 == n2");
+		return null;
+
+	}
+
+	private static Node intersectionHelper(LinkedList ll1, LinkedList ll2, int len1, int len2){
+		
+		Node n1 = ll1.head;
+		Node n2 = ll2.head;
+		
+		if (len1!=len2){
+			if (len1 > len2){
+				n1 = move(n1, n2);
+			}
+			else{
+				n2 = move(n2, n1);
+			}
+			
+		}
+
+		while (n1!=null && n2!=null){
+			if (n1 == n2){
+				return n1;
+			}
+			n1=n1.next;
+			n2=n2.next;
+		}
+		return null;
+		
+	}
+	
+	private static Node move(Node n1, Node n2){
+		while (n1!=null){
+			if (n1 == n2){
+				return n1;
+			}
+			n1=n1.next;
+			
+		}
+		return null;
+	}
+	
+	private static LinkedList addNode(Node n, LinkedList ll){
+		Node head = ll.head;
+		while (head.next!=null){
+			head = head.next;
+		}
+		head.next = n;
+		return ll;
+	}
+	
+	public static void main(String[] args){
+
+		LinkedList ll = new LinkedList();
+		
+		ll.appendToTail(1);
+		ll.appendToTail(4);
+		
+		ll.appendToTail(1);
+		ll.appendToTail(4);
+		
+		
+		LinkedList ll2 = new LinkedList();
+		
+		
+		ll2.appendToTail(1);
+		ll2.appendToTail(4);
+		
+		ll2.appendToTail(1);
+		ll2.appendToTail(4);
+		ll2.appendToTail(5);
+		
+		Node newNode = new Node(11);
+		addNode(newNode, ll);
+		addNode(newNode, ll2);
+		
+		Node n = intersection(ll, ll2);
+		
+		if (n == null){
+			System.out.println("its none");
+		}else{
+			System.out.println(n.value);
+		}
+		
+		
+		
+	}
+	
+	 
+	
+	
+}
+
+
+class NodePlusBoolean{
+	public boolean result;
+	public Node node;
+	
+	NodePlusBoolean(Node n, boolean result){
+		this.result = result;
+		this.node=n;
+	}
+	
+}
+
+class LinkedList{
+	Node head;
+	
+	LinkedList(){
+		this.head=null;
+	}
+	
+	public void print(){
+		Node n = this.head;
+		while (n!= null){
+			System.out.println(n.value);
+			n=n.next;
+		}
+	}
+	
+	public void appendToTail(int value){
+		Node newNode = new Node(value);
+		if (this.head == null){
+			
+			this.head = newNode;
+		}
+		else{
+			Node n = this.head;
+			while (n.next!= null){
+				n = n.next;
+			}
+			n.next = newNode;
+		}
+		
+	}
+	
+	
+}
+
+class Node{
+	
+	public Node next;
+	public int value;
+	
+	Node(int value){
+		this.value=value;
+		this.next=null;
+	}
+	
+}
