@@ -1,0 +1,136 @@
+public class MyAnswer{
+
+    public static Node intersection(Node head1, Node head2){
+
+        // check if the last node of ll1 == the last node of ll2
+        // meanwhile, find length of ll1, length of ll2
+
+        Node h1 = head1;
+        Node h2 = head2;
+
+        int len1 = 0;
+
+
+        int len2 = 0;
+
+
+        while(h1.next != null){
+            len1 += 1;
+            h1 = h1.next;
+        }
+
+
+        while(h2.next != null){
+            len2 += 1;
+            h2 = h2.next;
+        }
+
+        if (h1 != h2){
+            return null;
+        }
+        if (len1 != len2){
+            if (len1>len2){
+                int diff = len1 - len2;
+                h1 = moveHead(head1, diff);
+                h2 = head2;
+            }else{
+                int diff = len2 - len1;
+                h2 = moveHead(head2, diff);
+                h1 = head1;
+            }
+        }
+
+        while (h1!=null && h2!=null){
+            if (h1 == h2){
+                return h1;
+            }
+            h1 = h1.next;
+            h2 = h2.next;
+        }
+        return null;
+
+    }
+
+    private static Node moveHead(Node n, int num){
+
+        while (num > 0){
+            n = n.next;
+            num--;
+
+        }
+        return n;
+
+    }
+    public static void main(String[] strings){
+        Node n1 = new Node(1);
+
+        Node n2 = new Node(2);
+
+        Node n3 = new Node(3);
+
+        Node n4 = new Node(4);
+
+        n1.next=n2;
+        n2.next=n3;
+        n3.next=n4;
+
+        Node n5 = new Node(5);
+
+        Node n6 = new Node(6);
+
+        n5.next=n6;
+        n6.next=n4;
+
+
+        Node result = intersection(n2, n5);
+        System.out.println(result.value);
+
+
+    }
+
+
+
+}
+
+class LinkedList{
+    Node head;
+
+    LinkedList(){
+        this.head=null;
+    }
+
+    public void print(){
+        Node n = this.head;
+        while (n!= null){
+            System.out.println(n.value);
+            n=n.next;
+        }
+    }
+
+    public void appendToTail(int value){
+        Node newNode = new Node(value);
+        if (this.head == null){
+
+            this.head = newNode;
+        }
+        else{
+            Node n = this.head;
+            while (n.next!= null){
+                n = n.next;
+            }
+            n.next = newNode;
+        }
+    }
+}
+
+class Node{
+
+    public Node next;
+    public int value;
+
+    Node(int value){
+        this.value=value;
+        this.next=null;
+    }
+
+}
