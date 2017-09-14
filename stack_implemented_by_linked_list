@@ -1,0 +1,50 @@
+package Hello;
+import java.util.*;
+public class MyStack<T> {
+	
+	private static class StackNode<T>{
+		private T data;
+		private StackNode<T> next;
+		
+		public StackNode(T data){
+			this.next = null;
+			this.data = data;
+		}
+		
+	
+	}
+	
+	private StackNode<T> top;
+	
+	public T pop(){
+		if (top == null) throw new EmptyStackException();
+		StackNode<T> result = top;
+		top = top.next;
+		return result.data;
+	}
+	
+	public void push(T data){
+		
+		if (top == null){
+			top = new StackNode<T>(data);
+		}else{
+			StackNode<T> newOne = new StackNode<T>(data);
+			newOne.next = top;
+			top = newOne;
+		}
+		
+	}
+	
+	public T peek(){
+		if (top == null) throw new EmptyStackException();
+		return top.data;
+		
+	}
+	
+	public boolean isEmpty(){
+		return top==null;
+		
+	}
+	
+
+}
