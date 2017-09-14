@@ -1,0 +1,57 @@
+package Hello;
+import java.util.*;
+public class QueueImplementedByTwoStack<T> {
+	private Stack<T> oldStack;
+	private Stack<T> newStack;
+	
+	public QueueImplementedByTwoStack(){
+		this.oldStack = new Stack<T>();
+		this.newStack = new Stack<T>();
+	}
+	
+	public int size(){
+		return this.oldStack.size() + this.newStack.size();
+	}
+	
+	// remove one element
+	public T remove(){
+		if (oldStack.isEmpty()){
+			shift();
+		}
+		if (oldStack.isEmpty()){
+			return null;
+		}
+		return oldStack.pop();
+		
+	}
+	
+	// add a new element
+	public void add(T element){
+		if (oldStack.isEmpty()){
+			newStack.push(element);
+			shift();
+		}else{
+			newStack.push(element);
+		}
+		
+	}
+	
+	// check if the queue is empty
+	public boolean isEmpty(){
+		return oldStack.isEmpty() && newStack.isEmpty();
+	}
+	
+	// get the top element
+	public T peek(){
+		return oldStack.peek();
+	}
+	
+	// shift from new to old
+	private void shift(){
+		
+		while (!newStack.isEmpty()){
+			oldStack.push(newStack.pop());
+		}
+	}
+	
+}
