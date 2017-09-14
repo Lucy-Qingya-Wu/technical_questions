@@ -1,0 +1,27 @@
+#Assume fileA and fileB are in the same package
+
+#-----below is in fileA-----
+public class MyStack<T> {
+	
+	public static class StackNode<T>{
+		private T data;
+		private StackNode<T> next;
+		
+		public StackNode(T data){
+			this.data = data;
+		}
+	}
+  
+}
+#-----above is in fileA-----
+
+#-----below is in fileB-----
+public class Answer {
+
+	public static void main(String[] args){
+		// static inner class
+		MyStack.StackNode<String> n = new MyStack.StackNode<String>("haha");
+  }
+	
+}
+#-----above is in fileB-----
