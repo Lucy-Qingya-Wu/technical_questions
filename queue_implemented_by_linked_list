@@ -1,0 +1,51 @@
+package Hello;
+import java.util.*;
+public class MyQueue<T> {
+	
+	private static class QueueNode<T>{
+		
+		private T data;
+		private QueueNode<T> next;
+		
+		private QueueNode(T data){
+			this.data = data;
+			this.next = next;
+		}
+	}
+	
+	private QueueNode<T> head;
+	private QueueNode<T> tail;
+	
+	
+	public void add(T data){
+		if (head == null){
+			head = new QueueNode<T>(data);
+			tail = head;
+		}
+		else{
+			QueueNode<T> newOne = new QueueNode<T>(data);
+			tail.next = newOne;
+			tail = newOne;
+		}
+		
+	}
+	
+	
+	public T remove(){
+		if (head == null) throw new NoSuchElementException();
+		QueueNode<T> n = head;
+		head = head.next;
+		if (head == null) tail = null;
+		return n.data;
+	}
+	
+	public T peek(){
+		if (head == null) throw new NoSuchElementException();
+		return head.data;
+	}
+	
+	public boolean isEmpty(){
+		return head == null;
+	}
+	
+}
