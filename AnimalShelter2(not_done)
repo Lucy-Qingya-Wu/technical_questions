@@ -1,0 +1,36 @@
+import java.util.*;
+public class AnimalShelter2 {
+	public static void main(String[] args){
+		AnimalNode n = new AnimalNode("")
+	}
+}
+
+class AnimalNode{
+	public String name;
+	public AnimalNode next;
+	
+	public AnimalNode(String name){
+		this.name = name;
+		this.next = null;
+	}
+}
+
+class LinkedList{
+	
+	private AnimalNode head;
+	private AnimalNode tail;
+	
+	
+	public void appendToTail(AnimalNode n){
+		
+		if (this.head == null){
+			this.head =  n;
+			this.tail = n;
+		}
+		else{
+			this.tail.next = n;
+			this.tail = n;
+		}
+		
+	}
+}
