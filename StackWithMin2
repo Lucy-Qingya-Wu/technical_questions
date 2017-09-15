@@ -1,0 +1,51 @@
+package Hello;
+import java.util.*;
+import java.util.*;
+
+// save min in a stack, pop the element out if it is deleted
+public class StackWithMin extends Stack<Integer>{
+	private Stack<Integer> s;
+	public StackWithMin(){
+		s = new Stack<Integer>();
+	}
+	
+	public Integer pop(){
+		int value = super.pop();
+		int minValue = minOne();
+		if (value == minValue){
+			s.pop();
+		}
+		return value;
+		
+	}
+	public int minOne(){
+		if (s.isEmpty()) return Integer.MAX_VALUE;
+		return s.peek();
+		
+	}
+	public void push(int v){
+		int minV = minOne();
+		if (v < minV){
+			s.push(v);
+		}
+		super.push(v);
+		
+	}
+	public Integer peek(){
+		Integer v = super.peek();
+		return v.intValue();
+	}
+	
+	public static void main(String[] args){
+		StackWithMin haha = new StackWithMin();
+		haha.push(2);
+		haha.push(3);
+		haha.push(1);
+		System.out.println(haha.minOne());
+		haha.pop();
+		System.out.println(haha.minOne());
+		
+		
+	}
+}
+
