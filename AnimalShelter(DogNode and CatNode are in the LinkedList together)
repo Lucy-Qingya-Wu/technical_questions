@@ -1,0 +1,141 @@
+package Hello;
+
+// DogNode and CatNode are in the LinkedList together
+public class AnimalShelter {
+	
+	final int dog = 1;
+	final int cat = 0;
+	
+	int dogCount;
+	int catCount;
+	LinkedList ll;
+	
+	public AnimalShelter(){
+		this.ll = new LinkedList();
+		this.dogCount = 0;
+		this.catCount = 0;
+	}
+	
+	
+
+	public void enqueue(int v, String name){
+		this.ll.appendToTail(v, name);
+		if (v == 1) this.dogCount++;
+		else if (v == 0) this.catCount++;
+		else{
+			System.out.println("ONLY CAT/DOG IN THIS SHELTER");
+		}
+		
+		
+	}
+	public Node dequeueDog(){
+		if (this.dogCount == 0) return null;
+		Node h = this.ll.head;
+		if (h.value == 1){
+			this.ll.head = h.next;
+			return h;
+		}
+		while (h.next.value == 0){
+			h = h.next;
+		}
+		Node n = h.next;
+		h.next = h.next.next;
+		this.dogCount--;
+		return n;
+		
+	}
+	public Node dequeueCat(){
+		if (this.catCount == 0) return null;
+		Node h = this.ll.head;
+		if (h.value == 0){
+			this.ll.head = h.next;
+			return h;
+		}
+		while (h.next.value == 1){
+			h = h.next;
+		}
+		Node n = h.next;
+		h.next = h.next.next;
+		this.catCount--;
+		return n;
+		
+	}
+	
+	public Node dequeueAny(){
+		if (this.catCount == 0 && this.dogCount == 0) return null;
+		Node h = ll.head;
+		if (h.value == 1) this.dogCount--;
+		else if (h.value == 0) this.catCount--;
+		this.ll.head = h.next;
+		return h;
+	}
+	
+	public static void main(String[] args){
+		AnimalShelter q = new AnimalShelter();
+		q.enqueue(0, "cat1");
+		q.enqueue(0, "cat2");
+		q.enqueue(1, "dog1");
+		q.enqueue(0, "cat3");
+		q.enqueue(1, "dog2");
+		
+	    Node n = q.dequeueAny();
+	    System.out.println("name: " + n.name + " is dequeued");
+	    
+	    Node n1 = q.dequeueDog();
+	    System.out.println("name: " + n1.name + " is dequeued");
+	    
+	    Node n2 = q.dequeueCat();
+	    System.out.println("name: " + n2.name + " is dequeued");
+		
+		
+	}
+	
+	 
+}
+
+class Node{
+	
+	public Node next;
+	public int value;
+	public String name;
+	Node(int value, String name){
+		this.value=value;
+		this.next=null;
+		this.name = name;
+	}
+	
+}
+
+class LinkedList{
+	Node head;
+	
+	LinkedList(){
+		this.head=null;
+	}
+	
+	public void print(){
+		Node n = this.head;
+		while (n!= null){
+			System.out.println(n.value);
+			n=n.next;
+		}
+	}
+	
+	public void appendToTail(int value, String name){
+		Node newNode = new Node(value, name);
+		if (this.head == null){
+			
+			this.head = newNode;
+		}
+		else{
+			Node n = this.head;
+			while (n.next!= null){
+				n = n.next;
+			}
+			n.next = newNode;
+		}
+		
+	}
+	
+	
+}
