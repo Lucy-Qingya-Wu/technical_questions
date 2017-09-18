@@ -1,0 +1,151 @@
+public class AnimalShelter2 {
+
+    private LinkedList dogList=new LinkedList();;
+    private LinkedList catList=new LinkedList();;
+    private int dogCount = 0;
+    private int catCount = 0;
+    private int order=0;
+
+
+    public AnimalNode dequeueAny(){
+
+        if (dogCount == 0 && catCount == 0) return null;
+
+        int dog = dogList.getHead()==null? Integer.MAX_VALUE:dogList.getHead().order;
+        int cat = catList.getHead()==null? Integer.MAX_VALUE:catList.getHead().order;
+
+        if (dog < cat){
+
+            return dequeueDog();
+        }else{
+
+            return dequeueCat();
+        }
+
+    }
+
+    public AnimalNode dequeueDog(){
+        if (dogCount == 0) return null;
+        AnimalNode n = dogList.getHead();
+        dogList.setHead(n.next);
+        dogCount--;
+        return n;
+    }
+
+    public AnimalNode dequeueCat(){
+        if (catCount == 0) return null;
+        AnimalNode n = catList.getHead();
+        catList.setHead(n.next);
+        catCount--;
+        return n;
+    }
+
+
+
+    public void enqueue(AnimalNode n){
+        order++;
+        System.out.println("order is " + order);
+
+        n.order = this.order;
+        if (n.type.equals("dog")){
+            dogCount++;
+            dogList.appendToTail(n);
+        }else{
+            catCount++;
+            catList.appendToTail(n);
+        }
+    }
+
+
+
+    public static void main(String[] args){
+        AnimalNode cat1 = new AnimalNode("cat1", "cat");
+        AnimalNode cat2 = new AnimalNode("cat2", "cat");
+        AnimalNode cat3 = new AnimalNode("cat3", "cat");
+        AnimalNode dog1 = new AnimalNode("dog1", "dog");
+        AnimalNode dog2 = new AnimalNode("dog2", "dog");
+
+        AnimalShelter2 q = new AnimalShelter2();
+
+        q.enqueue(cat1);
+        q.enqueue(cat2);
+        q.enqueue(dog1);
+        q.enqueue(cat3);
+        q.enqueue(dog2);
+
+
+
+        AnimalNode n = q.dequeueAny();
+        if (n == null) System.out.println("all list are empty");
+        else {System.out.println(n.name);}
+
+        AnimalNode n1 = q.dequeueDog();
+        if (n1 == null) System.out.println("dog list is empty");
+        else{System.out.println(n1.name);}
+
+        AnimalNode n2 = q.dequeueDog();
+        if (n2 == null) System.out.println("dog list is empty");
+        else{System.out.println(n2.name);}
+
+        AnimalNode n3 = q.dequeueCat();
+        if (n3 == null) System.out.println("cat list is empty");
+        else {System.out.println(n3.name);}
+
+        AnimalNode n4 = q.dequeueAny();
+        if (n4 == null) System.out.println("all list are empty");
+        else {System.out.println(n4.name);}
+
+        AnimalNode n5 = q.dequeueAny();
+        if (n5 == null) System.out.println("all list are empty");
+        else {System.out.println(n5.name);}
+
+        AnimalShelter2 q1 = new AnimalShelter2();
+
+
+
+
+    }
+
+
+}
+
+class AnimalNode{
+    public String name;
+    public AnimalNode next;
+    public int order;
+    public String type;
+
+    public AnimalNode(String name, String type){
+        this.name = name;
+        this.next = null;
+        this.order = 0;
+        this.type = type;
+    }
+}
+
+class LinkedList{
+
+    private AnimalNode head;
+    private AnimalNode tail;
+
+    public AnimalNode getHead(){
+        return this.head;
+    }
+    public void setHead(AnimalNode n){
+        this.head = n;
+    }
+
+    public void appendToTail(AnimalNode n){
+
+
+        if (this.head == null){
+            this.head =  n;
+            this.tail = n;
+        }
+        else{
+            this.tail.next = n;
+            this.tail = n;
+        }
+
+    }
+}
