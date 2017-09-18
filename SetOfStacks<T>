@@ -1,0 +1,109 @@
+import java.util.*;
+public class SetOfStacks<T> {
+
+    private Stack<StackOfPlates> set = new Stack<StackOfPlates>();
+
+
+    public void push(T plate){
+
+        if (set.size() == 0 || set.peek().reachMax()){
+
+            StackOfPlates oneStack = new StackOfPlates();
+
+            set.push(oneStack);
+
+        }
+
+        StackOfPlates oneStack = set.peek();
+        oneStack.push(plate);
+
+    }
+
+    public T popAt(int i){
+
+        int size = set.size();
+
+        if (i > size){
+            return null;
+        }
+
+        Stack<StackOfPlates> temp = new Stack<StackOfPlates>();
+        int count = 0;
+        while (count < size-i){
+            temp.push(set.pop());
+            count ++;
+        }
+
+        T answer = (T)set.peek().pop();
+        count = 0;
+        while (count < size-i){
+            set.push(temp.pop());
+            count ++;
+        }
+        return answer;
+
+    }
+
+    public T pop(){
+        if (set.size() == 0){
+            return null;
+        }
+        StackOfPlates oneStack = set.peek();
+
+        if (oneStack.size() == 0){
+            return null;
+        }
+        return (T)oneStack.pop();
+    }
+
+    public static void main(String[] args){
+        SetOfStacks s = new SetOfStacks();
+
+
+        s.push(6);
+        s.push(5);
+        s.push(4);
+        System.out.println(s.pop());
+        s.push(3);
+        System.out.println(s.popAt(2));
+        System.out.println(s.popAt(1));
+
+
+
+    }
+
+}
+
+class StackOfPlates<T>{
+
+
+    private Stack<T> s = new Stack<T>();
+
+    // it has size limits
+    final int capacity = 2;
+
+
+    int size = 0;
+
+    public void push(T plate){
+
+        s.push(plate);
+        this.size ++;
+
+    }
+
+    public boolean reachMax(){
+        return size == capacity;
+    }
+
+    public T pop(){
+        return s.pop();
+    }
+
+    public int size(){
+        return this.size;
+    }
+
+}
+
+
