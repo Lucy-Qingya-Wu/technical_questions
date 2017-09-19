@@ -1,0 +1,120 @@
+import java.util.*;
+
+abstract class Animal{
+    int order;
+    String name;
+    public Animal(String name){
+        this.name = name;
+    }
+    public int getOrder(){
+        return order;
+    }
+    public void setOrder(int order){
+        this.order = order;
+    }
+    public String getName(){
+        return this.name;
+
+    }
+}
+
+public class AnimalShelter {
+    int order = 0;
+
+    private LinkedList<Animal> dogs= new LinkedList<Animal>();
+    private LinkedList<Animal> cats= new LinkedList<Animal>();
+
+
+    public void enqueue(Animal a){
+
+        if (a instanceof Dog){
+            dogs.add(a);
+            a.setOrder(order);
+            order++;
+        }
+        else if (a instanceof Cat){
+            cats.add(a);
+            a.setOrder(order);
+            order++;
+        }
+
+    }
+
+    public Animal dequeueAny(){
+
+        if (dogs.size() == 0){
+            return dequeueCat();
+        }
+        else if (cats.size() == 0){
+            return dequeueDog();
+        }
+        else if (dogs.size() == 0 && cats.size() == 0){
+            System.out.println("no animal in the shelter");
+            return null;
+        }
+        Animal dog = dogs.peek();
+        Animal cat = cats.peek();
+
+
+
+        if (dog.getOrder() > cat.getOrder()){
+            return dequeueCat();
+        }else{
+            return dequeueDog();
+        }
+
+    }
+
+    public Animal dequeueDog(){
+
+        return dogs.poll();
+
+    }
+
+    public Animal dequeueCat(){
+        return cats.poll();
+
+    }
+
+    public static void main(String[] args){
+        Dog d1 = new Dog("d1");
+        Dog d2 = new Dog("d2");
+
+        Cat c1 = new Cat("c1");
+        Cat c2 = new Cat("c2");
+        Cat c3 = new Cat("c3");
+
+        AnimalShelter shelter = new AnimalShelter();
+        shelter.enqueue(d1);
+        shelter.enqueue(d2);
+        shelter.enqueue(c1);
+        shelter.enqueue(c2);
+
+        
+
+        System.out.println(shelter.dequeueCat().getName());
+        System.out.println(shelter.dequeueAny().getName());
+        System.out.println(shelter.dequeueAny().getName());
+
+
+
+
+
+
+    }
+
+
+}
+
+class Dog extends Animal{
+    public Dog(String n){
+        super(n);
+    }
+}
+
+class Cat extends Animal{
+    public Cat(String n){
+        // where it becomes useful is when the super constructor takes arguments that you want to pass in from the subclass.
+        super(n);
+    }
+}
