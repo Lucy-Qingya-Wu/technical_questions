@@ -1,0 +1,8 @@
+LinkedList<Integer> haha = new LinkedList<Integer>();
+haha.add(3);
+haha.add(5);
+haha.add(2);
+
+for (Integer a:haha){
+        System.out.println(a);
+}
