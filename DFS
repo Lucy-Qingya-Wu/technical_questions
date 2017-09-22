@@ -64,7 +64,15 @@ public class Graph {
 
 }
 
-
+class Node{
+    int num;
+    Node[] children;
+    boolean visited;
+    public Node(int num){
+        this.num = num;
+        this.visited = false;
+    }
+}
 class GraphNode extends Node{
 
     GraphNode[] children;
