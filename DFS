@@ -1,0 +1,78 @@
+import java.util.*;
+public class Graph {
+    GraphNode root;
+    public Graph(GraphNode root){
+        this.root = root;
+    }
+
+    public GraphNode dfs(int value){
+
+        GraphNode n = this.root;
+
+        Stack<GraphNode> stack = new Stack<GraphNode>();
+
+        stack.push(n);
+
+        while (stack.size() != 0){
+
+            GraphNode node = stack.pop();
+            if (!node.visited){
+                if (node.num == value){
+                    System.out.println(node.num);
+                    return node;
+                }
+
+                node.visited = true;
+                System.out.println(node.num);
+                if (node.children!=null) {
+                    for (GraphNode neighbor : node.children) {
+                        stack.push(neighbor);
+                    }
+                }
+            }
+        }
+
+        return null;
+
+    }
+
+
+
+    public static void main(String[] args){
+        System.out.println("--below is dfs--------");
+        GraphNode n0 = new GraphNode(0);
+        GraphNode n1 = new GraphNode(1);
+        GraphNode n2 = new GraphNode(2);
+        GraphNode n3 = new GraphNode(3);
+        GraphNode n4 = new GraphNode(4);
+        GraphNode n5 = new GraphNode(5);
+
+        n0.children = new GraphNode[]{n5, n4, n1};
+        n1.children = new GraphNode[]{n4, n3};
+        n2.children = new GraphNode[]{n1};
+        n3.children = new GraphNode[]{n4, n2};
+
+
+        Graph g = new Graph(n0);
+        
+
+        g.dfs(6);
+
+
+
+    }
+
+}
+
+
+class GraphNode extends Node{
+
+    GraphNode[] children;
+
+    public GraphNode(int num){
+        super(num);
+
+    }
+
+}
+
