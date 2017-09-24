@@ -1,86 +1,24 @@
-import java.util.*;
-public class Graph {
-    GraphNode root;
-    public Graph(GraphNode root){
-        this.root = root;
-    }
 
-    public GraphNode dfs(int value){
+    public Node dfs(Node n1, Node n2){
+        Stack<Node> s = new Stack<Node>();
+        if (n1 == n2) return n1;
+        s.push(n1);
 
-        GraphNode n = this.root;
-
-        Stack<GraphNode> stack = new Stack<GraphNode>();
-
-        stack.push(n);
-
-        while (stack.size() != 0){
-
-            GraphNode node = stack.pop();
-            if (!node.visited){
-                if (node.num == value){
-                    System.out.println(node.num);
-                    return node;
-                }
-
-                node.visited = true;
-                System.out.println(node.num);
-                if (node.children!=null) {
-                    for (GraphNode neighbor : node.children) {
-                        stack.push(neighbor);
+        while(!s.isEmpty()){
+            Node n = s.pop();
+            n.status = State.Visited;
+            System.out.println(n.value);
+            if (n.adjacent != null){
+                for (Node neighbor: n.adjacent){
+                    if (neighbor == n2) return neighbor;
+                    if (neighbor.status == State.Unvisited){
+                        s.push(neighbor);
+                        neighbor.status = State.Visiting;
                     }
                 }
             }
-        }
 
+        }
         return null;
 
     }
-
-
-
-    public static void main(String[] args){
-        System.out.println("--below is dfs--------");
-        GraphNode n0 = new GraphNode(0);
-        GraphNode n1 = new GraphNode(1);
-        GraphNode n2 = new GraphNode(2);
-        GraphNode n3 = new GraphNode(3);
-        GraphNode n4 = new GraphNode(4);
-        GraphNode n5 = new GraphNode(5);
-
-        n0.children = new GraphNode[]{n5, n4, n1};
-        n1.children = new GraphNode[]{n4, n3};
-        n2.children = new GraphNode[]{n1};
-        n3.children = new GraphNode[]{n4, n2};
-
-
-        Graph g = new Graph(n0);
-        
-
-        g.dfs(6);
-
-
-
-    }
-
-}
-
-class Node{
-    int num;
-    Node[] children;
-    boolean visited;
-    public Node(int num){
-        this.num = num;
-        this.visited = false;
-    }
-}
-class GraphNode extends Node{
-
-    GraphNode[] children;
-
-    public GraphNode(int num){
-        super(num);
-
-    }
-
-}
-
