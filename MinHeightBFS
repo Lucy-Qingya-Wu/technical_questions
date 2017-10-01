@@ -1,0 +1,64 @@
+import java.util.*;
+public class MinHeightBFS {
+
+    Node root;
+
+    public Node create(int[] numArray, int first, int last){
+
+        if (last < first){
+            return null;
+        }
+
+        int middle = (last+first) / 2;
+        Node newNode = new Node(numArray[middle]);
+
+        newNode.left = create(numArray,first, middle-1);
+
+        newNode.right = create(numArray,middle+1, last);
+
+        return newNode;
+
+    }
+
+    public void printBFS(Node n, int level){
+        if (n.left != null){
+
+            printBFS(n.left, level+2);
+        }
+
+        char[] chars = new char[level];
+        Arrays.fill(chars, ' ');
+        String text = new String(chars);
+
+        System.out.println(text + n.value);
+
+        if (n.right != null){
+
+            printBFS(n.right, level+2);
+        }
+
+    }
+
+    public static void main(String[] args){
+        int[] numArray = {0, 1, 2, 3, 4, 5};
+        MinHeightBFS bfs = new MinHeightBFS();
+        bfs.root = bfs.create(numArray, 0, 5);
+
+        bfs.printBFS(bfs.root, 1);
+
+
+
+
+    }
+
+}
+class Node{
+    int value;
+    Node left;
+    Node right;
+
+    public Node(int value){
+        this.value = value;
+    }
+
+}
