@@ -1,0 +1,103 @@
+import java.util.*;
+public class ListOfDepths {
+
+    LinkedList<LinkedList> ll = new LinkedList<LinkedList>();
+
+    public LinkedList<LinkedList> createLinkedListForAllLevels(Tree t){
+
+        ll = addNode(t.root, 0, ll);
+
+        return ll;
+
+    }
+
+    private LinkedList<LinkedList> addNode(Node n, int level, LinkedList<LinkedList> ll){
+
+        if (n == null){
+            return null;
+        }
+
+        if (level > ll.size() - 1){
+            ll.add(new LinkedList<Node>());
+        }
+        LinkedList<Node> lln = ll.get(level);
+
+        lln.add(n);
+
+        if (n.left != null){
+            ll = addNode(n.left, level + 1, ll);
+        }
+
+        if (n.right != null){
+            ll = addNode(n.right, level + 1, ll);
+        }
+
+        return ll;
+
+    }
+
+
+
+    public static void main(String[] args){
+        ListOfDepths listOfDepths = new ListOfDepths();
+
+
+        Node node0 = new Node(0);
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        Node node3 = new Node(3);
+        Node node4 = new Node(4);
+        Node node5 = new Node(5);
+        Node node6 = new Node(6);
+
+        node0.left = node1;
+        node0.right = node2;
+
+        node1.left = node3;
+        node1.right = node4;
+
+        node2.left = node5;
+        node2.right = node6;
+
+
+
+        Tree t = new Tree();
+        t.root = node0;
+
+        listOfDepths.ll = listOfDepths.createLinkedListForAllLevels(t);
+
+        for (int level=0; level<listOfDepths.ll.size();level++){
+
+            LinkedList<Node> lln = listOfDepths.ll.get(level);
+
+            for (Node n: lln){
+                System.out.print(n.value);
+            }
+            System.out.println();
+
+        }
+    }
+}
+
+class Tree{
+    Node root;
+}
+
+class Node{
+    int value;
+    Node left;
+    Node right;
+
+    public Node(int value){
+        this.value = value;
+    }
+
+
+
+}
+
+
+
+
+
+
