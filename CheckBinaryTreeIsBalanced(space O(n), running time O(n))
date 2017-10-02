@@ -1,0 +1,110 @@
+import java.lang.*;
+
+public class CheckBinaryTreeIsBalanced {
+
+    public boolean isBalancedBinaryTree(Node n){
+
+        setHeight(n);
+
+        return isBalancedBT(n);
+
+
+
+    }
+
+    private boolean isBalancedBT(Node n){
+        if (n.height == 1){
+            return true;
+        }
+
+        boolean resultFromLeft = true;
+        boolean resultFromRight = true;
+
+        if (n.left != null) resultFromLeft = isBalancedBT(n.left);
+        if (n.right != null) resultFromRight = isBalancedBT(n.right);
+
+        if (resultFromLeft && resultFromRight){
+            int leftHeight = n.left != null? n.left.height:0;
+            int rightHeight = n.right != null? n.right.height:0;
+
+            boolean result = Math.abs(leftHeight-rightHeight) <= 1;
+
+            return result;
+
+        }
+        else{
+            return false;
+        }
+    }
+
+
+    private int setHeight(Node n){
+        if (n.left == null && n.right == null){
+            n.height = 1;
+            return 1;
+        }
+        int leftHeight = 0;
+        int rightHeight = 0;
+
+        if (n.left != null){
+            leftHeight = setHeight(n.left);
+        }
+
+        if (n.right != null){
+            rightHeight = setHeight(n.right);
+        }
+
+        n.height = leftHeight > rightHeight ? leftHeight+1 : rightHeight+1;
+
+        return n.height;
+
+
+    }
+
+    public static void main(String[] args){
+        Node node0 = new Node(0);
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        Node node3 = new Node(3);
+        Node node4 = new Node(4);
+        Node node5 = new Node(5);
+        Node node7 = new Node(7);
+
+        node0.left = node1;
+        node0.right = node2;
+
+
+        node1.left = node3;
+        node3.right = node4;
+
+        node2.left = node5;
+        node2.right = node7;
+
+
+
+        Tree t = new Tree();
+        t.root = node0;
+
+        CheckBinaryTreeIsBalanced o = new CheckBinaryTreeIsBalanced();
+
+        System.out.println(o.isBalancedBinaryTree(t.root));
+    }
+
+}
+class Tree{
+    Node root;
+}
+
+class Node{
+    int value;
+    Node left;
+    Node right;
+    int height;
+
+    public Node(int value){
+        this.value = value;
+    }
+
+
+
+}
