@@ -1,0 +1,85 @@
+import java.lang.*;
+
+public class CheckBinaryTreeIsBalanced {
+
+    public boolean isBalancedBinaryTree(Node n){
+
+        return isBalancedBT(n) != Integer.MAX_VALUE;
+
+
+
+    }
+
+    private int isBalancedBT(Node n){
+
+        if (n.left == null && n.right == null){
+            return 1;
+        }
+
+        int resultFromLeft = n.left == null? 0:isBalancedBT(n.left);
+        if (resultFromLeft == Integer.MAX_VALUE) return Integer.MAX_VALUE;
+
+        int resultFromRight = n.right == null? 0:isBalancedBT(n.right);
+        if (resultFromRight == Integer.MAX_VALUE) return Integer.MAX_VALUE;
+
+        if (Math.abs(resultFromLeft - resultFromRight) <= 1){
+            int result = resultFromLeft > resultFromRight? resultFromLeft+1:resultFromRight+1;
+            return result;
+
+        }
+        return Integer.MAX_VALUE;
+
+
+
+    }
+
+
+
+
+    public static void main(String[] args){
+        Node node0 = new Node(0);
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        Node node3 = new Node(3);
+        Node node4 = new Node(4);
+        Node node5 = new Node(5);
+        Node node7 = new Node(7);
+
+        node0.left = node1;
+        node0.right = node2;
+
+
+        node1.left = node3;
+        node1.right = node4;
+
+        node2.left = node5;
+        node2.right = node7;
+
+
+
+        Tree t = new Tree();
+        t.root = node0;
+
+        CheckBinaryTreeIsBalanced o = new CheckBinaryTreeIsBalanced();
+
+        System.out.println(o.isBalancedBinaryTree(t.root));
+    }
+
+}
+class Tree{
+    Node root;
+}
+
+class Node{
+    int value;
+    Node left;
+    Node right;
+
+
+    public Node(int value){
+        this.value = value;
+    }
+
+
+
+}
