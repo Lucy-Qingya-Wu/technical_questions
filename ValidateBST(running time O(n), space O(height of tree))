@@ -1,0 +1,82 @@
+public class ValidateBST {
+
+
+    
+    // running time O(n), space O(height of tree) 
+    //check if a binary tree is a BST
+    public boolean checkBinaryTree(Node n, int minValue, int maxValue){
+
+        if (n == null){
+            return true;
+        }
+
+        if (n.value < minValue||n.value > maxValue){
+            return false;
+        }
+
+        boolean resultFromLeft = checkBinaryTree(n.left, minValue, n.value);
+        boolean resultFromRight = checkBinaryTree(n.right, n.value+1, maxValue);
+
+
+        if (!resultFromLeft || !resultFromRight){
+            return false;
+        }
+
+
+        return true;
+    }
+
+    public static void main(String[] args){
+
+
+        Node node0 = new Node(0);
+        Node node1 = new Node(1);
+        Node node2 = new Node(2);
+        Node node3 = new Node(3);
+        Node node4 = new Node(4);
+        Node node5 = new Node(5);
+        Node node6 = new Node(6);
+
+        node3.left = node1;
+        node3.right = node5;
+
+
+        node1.left = node0;
+        node1.right = node2;
+
+        node5.left = node4;
+        node5.right = node6;
+
+
+
+        Tree t = new Tree();
+        t.root = node0;
+
+        ValidateBST validateBST = new ValidateBST();
+
+        System.out.println(validateBST.checkBinaryTree(t.root, Integer.MIN_VALUE, Integer.MAX_VALUE));
+    }
+
+
+
+
+}
+
+
+class Tree{
+    Node root;
+}
+
+class Node{
+    int value;
+    Node left;
+    Node right;
+
+
+    public Node(int value){
+        this.value = value;
+    }
+
+
+
+}
