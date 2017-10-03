@@ -1,0 +1,128 @@
+
+import java.util.*; 
+public class BuildOrder {
+	
+	
+	public ArrayList<Node> buildOrder(ArrayList<ArrayList> dependencies, ArrayList<Node> projects){
+		
+		ArrayList<Node> result = new ArrayList<Node>();
+		
+		// add the projects to the sets
+		HashSet<Node> s = new HashSet();
+		for (Node n: projects){
+			s.add(n);
+		}
+		
+		Node createFirst;
+		Node createSecond;
+		// loop through the dependencies list, and for each project A,  add projects which are dependent on A 
+		for (ArrayList<Node> pairs: dependencies){
+			
+				createFirst = pairs.get(1);
+				createSecond = pairs.get(0);
+				createFirst.projects.add(createSecond);
+				s.remove(createSecond);
+			
+			
+			
+		}
+		
+		
+		// do BFS to generate the result
+		if (s.isEmpty()){
+			return null;
+		}
+		
+		
+		LinkedList<Node> ll = new LinkedList<Node>();
+	    for (Node n: s){
+	    	ll.add(n);
+	    	while (!ll.isEmpty()){
+	    		Node project = ll.removeFirst();
+	    		if (project.projects!=null){
+	    			for (Node otherProject:project.projects){
+	    				if (otherProject.status.equals("unvisited")){
+	    					otherProject.status = "visiting";
+		    				ll.add(otherProject);
+	    				}
+	    				
+	    			}
+	    		}
+	    		project.status = "visited";
+	    		result.add(project);
+	    	}
+	    }
+	    
+	    
+		
+		return result;
+	}
+	
+
+	public static void main(String[] args) {
+		
+		Node nodeA = new Node('a');
+		Node nodeB = new Node('b');
+		Node nodeC = new Node('c');
+		Node nodeD = new Node('d');
+		Node nodeE = new Node('e');
+		Node nodeF = new Node('f');
+		
+		ArrayList<Node> projects = new ArrayList<Node>();
+		projects.add(nodeA);
+		projects.add(nodeB);
+		projects.add(nodeC);
+		projects.add(nodeD);
+		projects.add(nodeE);
+		projects.add(nodeF);
+		
+		ArrayList<ArrayList> dependencies = new ArrayList<ArrayList>();
+		
+		ArrayList<Node> array1 = new ArrayList<Node>();
+		array1.add(nodeD);
+		array1.add(nodeA);
+		dependencies.add(array1);
+		
+		ArrayList<Node> array2 = new ArrayList<Node>();
+		array2.add(nodeB);
+		array2.add(nodeF);
+		dependencies.add(array2);
+		
+		ArrayList<Node> array3 = new ArrayList<Node>();
+		array3.add(nodeD);
+		array3.add(nodeB);
+		dependencies.add(array3);
+		
+		ArrayList<Node> array4 = new ArrayList<Node>();
+		array4.add(nodeA);
+		array4.add(nodeF);
+		dependencies.add(array4);
+		
+		ArrayList<Node> array5 = new ArrayList<Node>();
+		array5.add(nodeC);
+		array5.add(nodeD);
+		dependencies.add(array5);
+		
+		ArrayList<Node> result = new BuildOrder().buildOrder(dependencies, projects);
+	    if (result!=null){
+	    	for (Node n:result){
+	    		System.out.println(n.c);
+	    	}
+	    }
+		
+
+	}
+
+}
+
+class Node{
+	
+	char c;
+	ArrayList<Node> projects = new ArrayList<Node>();
+	String status;
+	
+	public Node(char c){
+		this.c = c;
+		status = "unvisited";
+	}
+}
