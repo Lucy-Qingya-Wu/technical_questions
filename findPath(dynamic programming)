@@ -1,0 +1,96 @@
+
+import java.util.*;
+public class RobotOnGrid {
+	
+	
+	
+	public static ArrayList<Point> findPath(boolean[][] matrix){
+		
+		ArrayList<Point> path = new ArrayList<Point>();
+		int row = matrix.length-1;
+		int col = matrix[0].length-1;
+		HashMap<Point, Boolean> cache = new HashMap<Point, Boolean>();
+		findPathHelper(row, col, matrix, path, cache);
+		return path;
+		
+		
+		
+	}
+	
+	private static boolean findPathHelper(int row, int col, boolean[][] matrix, ArrayList<Point> path, HashMap<Point, Boolean> cache){
+		
+		
+		//base case
+		//case1: if row < 0
+		//case2: if col < 0
+		//case3: matrix[row][col] == false
+		//return false
+		
+		if (row < 0 || col < 0 || !matrix[row][col]){
+			return false;
+		}
+		
+		Point newP = new Point(row, col);
+		
+		if (cache.containsKey(newP)){
+			return cache.get(newP);
+		}
+		
+		// if point is at origin
+		// or point could be reached by the origin
+		// put the point in the path
+		// return true
+		
+		boolean atOrigin = (row == 0) && (col == 0);
+		
+		if (atOrigin || findPathHelper(row-1, col, matrix, path, cache) || findPathHelper(row, col-1, matrix, path, cache)){
+			cache.put(newP, true);
+			path.add(newP);
+			return true;
+		}
+		cache.put(newP, false);
+		return false;
+		
+		
+	}
+	
+	public static void main(String[] args){
+
+		boolean[][] matrix = new boolean[3][];
+		matrix[0] = new boolean[]{true, true, true};
+		matrix[1] = new boolean[]{true, false, true};;
+		matrix[2] = new boolean[]{true, true, true};;
+		
+		
+        
+	
+		
+		
+		ArrayList<Point> path = findPath(matrix);
+		if (path.size() > 0){
+			for (Point p: path){
+				System.out.print(p.row);
+				System.out.print(" , ");
+				System.out.print(p.col);
+				System.out.println();
+
+			}
+	     }
+		
+	}
+	
+
+}
+
+class Point{
+	
+	int row;
+	int col;
+	
+	public Point(int row, int col){
+		this.row = row;
+		this.col = col;
+	}
+
+	
+}
