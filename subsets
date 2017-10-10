@@ -1,0 +1,49 @@
+import java.util.*;
+public class SuperSet {
+	public static HashSet<HashSet> subsets(HashSet<Integer> integers){
+		
+		HashSet<HashSet> previous = new HashSet<HashSet>();
+		HashSet<HashSet> newSet = new HashSet<HashSet>();
+		
+		for (Integer i:integers){
+			if (!previous.isEmpty()){
+				for (HashSet s:previous){
+					HashSet<Integer> n = new HashSet<Integer>();
+					n.addAll(s);
+					n.add(i);
+					newSet.add(n);
+				}
+			}
+			
+			previous.addAll(newSet);
+			newSet.clear();
+			HashSet<Integer> element = new HashSet<Integer>();
+			element.add(i);
+			previous.add(element);
+			
+		}
+		previous.add(new HashSet<Integer>());
+		
+		return previous;
+	}
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+		
+		HashSet<Integer> integers = new HashSet<Integer>();
+		
+		integers.add(1);
+		integers.add(2);
+		integers.add(3);
+		
+		HashSet<HashSet> result = subsets(integers);
+		
+		if (!result.isEmpty()){
+			for (HashSet s:result){
+				System.out.println(Arrays.toString(s.toArray()));
+			}
+		}
+		
+
+	}
+
+}
