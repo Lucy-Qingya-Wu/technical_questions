@@ -1,0 +1,41 @@
+import java.util.regex.Pattern;
+import java.util.regex.Matcher;
+import java.util.Scanner;
+
+public class regularExpression {
+
+	public static void scanner(){
+		Scanner sc = new Scanner(System.in);
+		
+		while (true){
+			
+			System.out.println("enter regex pattern");
+			
+			//compiles the given regex and return the instance of pattern
+			Pattern pattern = Pattern.compile(sc.nextLine()); 
+			
+			System.out.println("enter text");
+			Matcher matcher = pattern.matcher(sc.nextLine());
+			
+			boolean found = false;
+			
+			//returns the matched subsequence
+			while(matcher.find()){
+	            System.out.println("I found the text " + matcher.group() + " start at index " + matcher.start() + " end at index " + matcher.end());
+	            found = true;
+	        }
+			if (!found){
+				System.out.println("pattern not found");
+			}
+			
+			
+			
+		}
+	}
+	
+	public static void main(String[] args) {
+		scanner();
+
+	}
+
+}
